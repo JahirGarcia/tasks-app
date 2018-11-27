@@ -1,0 +1,26 @@
+extends ../layouts/app
+
+block content
+	.container.my-4
+		.row
+			.col-md-6.offset-md-3
+				if errors.length > 0
+					each err in errors
+						.alert.alert-danger.alert-dismissible.fade.show= err.message
+							button(type='button', data-dismiss='alert').close: span &times;
+				.card
+					.card-header
+						h3.font-weight-normal Sign in
+					.card-body
+						img(src='/img/bootstrap-solid.svg', alt='bootstrap_logo_thumbnail', width='80', height='80').rounded-circle.img-thumbnail.d-block.mb-4.mx-auto
+						form(method='post', action='/auth/signin')
+							input(type='hidden', name='_csrf', value=csrfToken)
+							.input-group.mb-3
+								.input-group-prepend
+									label(for='username').input-group-text: i.fas.fa-user
+								input(type='text', name='username', placeholder='Username')#username.form-control
+							.input-group.mb-4
+								.input-group-prepend
+									label(for='password').input-group-text: i.fas.fa-unlock
+								input(type='password', name='password', placeholder='Password')#password.form-control
+							button(type='submit').btn.btn-block.btn-dark Sign in

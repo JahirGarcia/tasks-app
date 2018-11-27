@@ -1,0 +1,22 @@
+extends ../layouts/app
+
+block content
+	.container.my-4
+		.row
+			.col-md-8.offset-md-2
+				if errors.length > 0
+					each err in errors
+						.alert.alert-danger.alert-dismissible.fade.show= err.message
+							button(type='button', data-dismiss='alert').close: span &times;
+				.card
+					.card-header
+						h3.font-weight-normal Add a new task
+					.card-body
+						form(method='post', action='/tasks/add')
+							input(type='hidden', name='_csrf', value=csrfToken)
+							.form-group
+								input(type='text', name='title', value=task.length > 0? task[0].title : '', placeholder='Title').form-control
+							.form-group
+								textarea(name='content' placeholder='Content', rows='7').form-control= task.length > 0? task[0].content : ''
+							button(type='submit').btn.btn-dark.btn-block Add
+							

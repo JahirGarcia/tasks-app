@@ -1,0 +1,24 @@
+extends ../layouts/app
+
+block content
+	.container.my-4
+		if message.length > 0
+			.alert.alert-success.alert-dismissible= message
+				button(type='button', data-dismiss='alert').close: span &times;
+		.row
+			each task in tasks
+				.col-md-3.pt-4
+					.card
+						.card-body
+							.card-title.d-flex.justify-content-between
+								h4= task.title
+								a(href='/tasks/edit/'+task._id).btn.btn-link: i.fas.fa-edit
+							p= task.content
+							form(method='post', action='/tasks/delete/'+task._id+'?_method=DELETE')
+								input(type='hidden', name='_csrf', value=csrfToken)
+								button(type='submit').btn.btn-danger.btn-block Delete
+			else
+				.col-12
+					.alert.alert-info There are not tasks yet,
+						a(href='/tasks/add').alert-link  add one now!
+						

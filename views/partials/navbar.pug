@@ -1,0 +1,25 @@
+nav.navbar.navbar-dark.bg-dark.navbar-expand-md
+	a(href='/').navbar-brand 
+		img(src='/img/bootstrap-solid.svg', alt='bootstrap_logo', width='32', height='32').d-inline-block.align-top
+		|  Tasks App
+	button(type='button', data-toggle='collapse', data-target='#navBarCollapseMenu').navbar-toggler: span.navbar-toggler-icon
+	.collapse.navbar-collapse#navBarCollapseMenu
+		ul.navbar-nav
+			li.nav-item.active: a(href='/').nav-link Home
+			li.nav-item: a(href='/about').nav-link About
+		ul.navbar-nav.ml-md-auto
+			if user
+				li.nav-item.dropdown
+					a(data-target='#userDropdown', data-toggle='dropdown').nav-link.dropdown-toggle Acount
+					#userDropdown.dropdown-menu.dropdown-menu-right
+						a(href='/tasks').dropdown-item Signed in as 
+							span.font-weight-bold= user.username
+						.dropdown-divider
+						a(href='/tasks').dropdown-item Your tasks
+						a(href='/tasks/add').dropdown-item Add a new task
+						.dropdown-divider
+						a(href='/auth/signout').dropdown-item Sign out
+			else 
+				a(href='/auth/signin').btn.btn-link.text-white.mr-md-3 Sign in
+				a(href='/auth/signup').btn.btn-outline-light Sign up
+			

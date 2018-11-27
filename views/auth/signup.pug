@@ -1,0 +1,33 @@
+extends ../layouts/app
+
+block content
+	.container.my-4
+		.row
+			.col-md-6.offset-md-3
+				if errors.length > 0
+					each err in errors
+						.alert.alert-danger.alert-dismissible.fade.show= err.message
+							button(type='button', data-dismiss='alert').close: span &times;
+				.card
+					.card-header
+						h3.font-weight-normal Sign Up
+					.card-body
+						form(method='post', action='/auth/signup')
+							input(type='hidden', name='_csrf', value=csrfToken)
+							.input-group.mb-3
+								.input-group-prepend
+									label(for='username').input-group-text: i.fas.fa-user
+								input(type='text', name='username',value=user.length > 0? user[0].username : '', placeholder='Username')#username.form-control
+							.input-group.mb-3
+								.input-group-prepend
+									label(for='email').input-group-text: i.fas.fa-envelope
+								input(type='email', name='email',value=user.length > 0? user[0].email : '', placeholder='Email')#email.form-control
+							.input-group.mb-3
+								.input-group-prepend
+									label(for='password').input-group-text: i.fas.fa-unlock
+								input(type='password', name='password', placeholder='Password')#password.form-control
+							.input-group.mb-4
+								.input-group-prepend
+									label(for='confirmPassword').input-group-text: i.fas.fa-unlock
+								input(type='password', name='confirm_password', placeholder='Confirm password')#confirmPassword.form-control
+							button(type='submit').btn.btn-dark.btn-block Sign up
